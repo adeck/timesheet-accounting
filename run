@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+#
+# Runs the timesheet analyzer and spits out
+#   the total number of hours w0rked.
+# And other metadata as-needed.
+#
+
+DATADIR="data/$(date +%Y)/$(date +%b)"
+DATAFILE="${DATADIR}/data.json"
+[ -f "${DATAFILE}" ] && echo This month... && ./lib/total.py "${DATAFILE}" "$@" || 
+{
+  echo Nothing to check this month.
+  exit 1
+}
+

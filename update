@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+#
+# Quick script to update the most recent timesheet.
+# At the end of the day, this is just a thing that starts vim.
+#  ...actually, there may already be flags for vim that accomplishes
+#     (some of) what this script accomplishes. But since this only
+#     took ~3 minutes, it works, and I wrote it a while ago, not changing
+#     it now.
+#
+
+DATADIR="data/$(date +%Y)/$(date +%b)"
+DATAFILE="${DATADIR}/data.json"
+echo "$DATAFILE"
+# No datadir? Make one.
+[ -d "${DATADIR}" ] || mkdir -p "${DATADIR}" ||
+{
+  echo Dir failed.
+  exit 1
+}
+# No datafile? Make one.
+[ -f "${DATAFILE}" ] || cp ./lib/data.json "${DATAFILE}" ||
+{
+  echo File failed.
+  exit 2
+}
+vim "${DATAFILE}"
+clear
+
